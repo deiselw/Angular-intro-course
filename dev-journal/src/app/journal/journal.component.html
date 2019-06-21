@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <h1>Dev Journal</h1>
+  <p>This is a small experiment with Angular.
+    The idea is to build a database where developers within a company or by themselves can store knowledge or small pieces of advice learned form 
+    previous experiences in order to hopefully avoid spending time on issues that another dev or themselves have already been through.
+  </p>
+  <section>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="material-icons">search</i></span>
+      </div>
+      <input [(ngModel)]="filterText" type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="inputGroup-sizing-default" />
+    </div>
+  </section>
+  <section class="mb-3 mt-3">
+    <div class="list-group">
+      <a *ngFor="let journalEntry of journal | filter : filterText" href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h6 class="mb-1">{{journalEntry.title}}</h6>
+          <small>{{journalEntry.creationDate | date }}</small>
+        </div>
+        <p class="mb-1">{{journalEntry.text}}</p>
+        <small>@{{journalEntry.user.name}}</small>
+      </a>
+    </div>
+  </section>
+  <section class="mb-3 mt-3">
+    <div class="form-group">
+      <input #journalEntryTitle type="text" class="form-control" placeholder="Title">
+    </div>
+    <div class="form-group">
+      <input #journalEntryText type="text" class="form-control" placeholder="What I've Learned">
+    </div>
+    <button 
+      (click)="add(journalEntryTitle.value, journalEntryText.value); journalEntryTitle.value=''; journalEntryText.value=''" 
+      class="btn btn-primary">
+      Add
+    </button>
+  </section>
+</div>
